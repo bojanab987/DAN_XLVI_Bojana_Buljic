@@ -162,15 +162,12 @@ namespace Zadatak_1.ViewModel
                 try
                 {
                     if(Employee!=null)
-                    {
-                        int employeeId = Employee.EmployeeId;
+                    {                        
                         service.DeleteEmployee(Employee);
                         //Logg actions missing
-                        isDeletedEmployee = true;
-                        if (IsDeletedEmployee == true)
-                        {
-                            EmployeeList = service.GetAllEmployees().ToList();
-                        }
+                        isDeletedEmployee = true;                       
+                        EmployeeList = service.GetAllEmployees().ToList();
+                        
                     }
                 }
                 catch (Exception ex)
@@ -248,6 +245,45 @@ namespace Zadatak_1.ViewModel
             }
             else
                 return true;
+        }
+
+        /// <summary>
+        /// LogOut Command
+        /// </summary>
+        private ICommand logOut;
+        public ICommand LogOut
+        {
+            get
+            {
+                if (logOut == null)
+                {
+                    logOut = new RelayCommand(param => LogOutExecute(), param => CanLogOutExecute());
+                }
+                return logOut;
+            }
+        }
+
+        /// <summary>
+        /// Method for logging out admin from app
+        /// </summary>  
+        private void LogOutExecute()
+        {
+            try
+            {
+                modify.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Method check if logout is possible to be Executed
+        /// </summary>
+        private bool CanLogOutExecute()
+        {
+            return true;
         }
         #endregion
     }

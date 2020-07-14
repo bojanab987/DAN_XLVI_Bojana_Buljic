@@ -90,9 +90,7 @@ namespace Zadatak_1.ViewModel
                 tblEmployee emp = service.AddEditEmployeeOrManager(Employee, true);
                 if (emp != null)
                 {
-                    MessageBox.Show("Manager succesfully created!");
-                    adminMenu.Close();
-                    adminMenu.ShowDialog();
+                    MessageBox.Show("Manager succesfully created!");                    
                 }                
                 else
                 {
@@ -151,8 +149,7 @@ namespace Zadatak_1.ViewModel
         {
             try
             {
-                adminMenu.Close();
-                Environment.Exit(0);
+                adminMenu.Close();                
             }
             catch (Exception ex)
             {

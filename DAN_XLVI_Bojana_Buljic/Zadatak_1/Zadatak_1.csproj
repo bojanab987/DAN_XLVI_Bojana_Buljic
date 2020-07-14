@@ -102,6 +102,7 @@
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ModifyViewModel.cs" />
+    <Compile Include="ViewModel\ReadOnlyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AddEditEmployeeView.xaml.cs">
       <DependentUpon>AddEditEmployeeView.xaml</DependentUpon>
