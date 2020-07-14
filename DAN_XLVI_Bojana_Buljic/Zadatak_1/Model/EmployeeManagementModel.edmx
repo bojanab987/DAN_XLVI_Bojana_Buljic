@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EmployeeManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblEmployees">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="30" />
+          <Property Name="LastName" Type="varchar" MaxLength="30" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="JMBG" Type="char" MaxLength="13" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Salary" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Position" Type="varchar" MaxLength="25" />
+          <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblManagers">
+          <Key>
+            <PropertyRef Name="ManagerId" />
+          </Key>
+          <Property Name="ManagerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="Sector" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AccessLevel" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblReports">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="ReportDate" Type="date" Nullable="false" />
+          <Property Name="Project" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="WorkHours" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EmployeeManagement.dbo.vwReports' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwReports">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="ReportDate" />
+            <PropertyRef Name="Project" />
+            <PropertyRef Name="WorkHours" />
+          </Key>
+          <Property Name="ReportId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="FullName" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="ReportDate" Type="date" Nullable="false" />
+          <Property Name="Project" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="25" />
+          <Property Name="WorkHours" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblManage__Emplo__3A81B327">
+          <End Role="tblEmployees" Type="Self.tblEmployees" Multiplicity="0..1" />
+          <End Role="tblManagers" Type="Self.tblManagers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEmployees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="tblManagers">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReport__Emplo__3D5E1FD2">
+          <End Role="tblEmployees" Type="Self.tblEmployees" Multiplicity="0..1" />
+          <End Role="tblReports" Type="Self.tblReports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEmployees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="tblReports">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmployeeManagementModelStoreContainer">
+          <EntitySet Name="tblEmployees" EntityType="Self.tblEmployees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblManagers" EntityType="Self.tblManagers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReports" EntityType="Self.tblReports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwReports" EntityType="Self.vwReports" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwReports].[ReportId] AS [ReportId], 
+    [vwReports].[EmployeeId] AS [EmployeeId], 
+    [vwReports].[FullName] AS [FullName], 
+    [vwReports].[ReportDate] AS [ReportDate], 
+    [vwReports].[Project] AS [Project], 
+    [vwReports].[Position] AS [Position], 
+    [vwReports].[WorkHours] AS [WorkHours]
+    FROM [dbo].[vwReports] AS [vwReports]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__tblManage__Emplo__3A81B327" Association="Self.FK__tblManage__Emplo__3A81B327">
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+            <End Role="tblManagers" EntitySet="tblManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReport__Emplo__3D5E1FD2" Association="Self.FK__tblReport__Emplo__3D5E1FD2">
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+            <End Role="tblReports" EntitySet="tblReports" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmployeeManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Position" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblManagers" Relationship="Self.FK__tblManage__Emplo__3A81B327" FromRole="tblEmployees" ToRole="tblManagers" />
+          <NavigationProperty Name="tblReports" Relationship="Self.FK__tblReport__Emplo__3D5E1FD2" FromRole="tblEmployees" ToRole="tblReports" />
+        </EntityType>
+        <EntityType Name="tblManager">
+          <Key>
+            <PropertyRef Name="ManagerId" />
+          </Key>
+          <Property Name="ManagerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="Sector" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccessLevel" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblEmployee" Relationship="Self.FK__tblManage__Emplo__3A81B327" FromRole="tblManagers" ToRole="tblEmployees" />
+        </EntityType>
+        <EntityType Name="tblReport">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Project" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkHours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblEmployee" Relationship="Self.FK__tblReport__Emplo__3D5E1FD2" FromRole="tblReports" ToRole="tblEmployees" />
+        </EntityType>
+        <EntityType Name="vwReport">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="ReportDate" />
+            <PropertyRef Name="Project" />
+            <PropertyRef Name="WorkHours" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Project" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="WorkHours" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblManage__Emplo__3A81B327">
+          <End Role="tblEmployees" Type="Self.tblEmployee" Multiplicity="0..1" />
+          <End Role="tblManagers" Type="Self.tblManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEmployees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="tblManagers">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReport__Emplo__3D5E1FD2">
+          <End Role="tblEmployees" Type="Self.tblEmployee" Multiplicity="0..1" />
+          <End Role="tblReports" Type="Self.tblReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEmployees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="tblReports">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmployeeManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblEmployees" EntityType="Self.tblEmployee" />
+          <EntitySet Name="tblManagers" EntityType="Self.tblManager" />
+          <EntitySet Name="tblReports" EntityType="Self.tblReport" />
+          <EntitySet Name="vwReports" EntityType="Self.vwReport" />
+          <AssociationSet Name="FK__tblManage__Emplo__3A81B327" Association="Self.FK__tblManage__Emplo__3A81B327">
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+            <End Role="tblManagers" EntitySet="tblManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReport__Emplo__3D5E1FD2" Association="Self.FK__tblReport__Emplo__3D5E1FD2">
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+            <End Role="tblReports" EntitySet="tblReports" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmployeeManagementModelStoreContainer" CdmEntityContainer="EmployeeManagementEntities">
+          <EntitySetMapping Name="tblEmployees">
+            <EntityTypeMapping TypeName="EmployeeManagementModel.tblEmployee">
+              <MappingFragment StoreEntitySet="tblEmployees">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblManagers">
+            <EntityTypeMapping TypeName="EmployeeManagementModel.tblManager">
+              <MappingFragment StoreEntitySet="tblManagers">
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReports">
+            <EntityTypeMapping TypeName="EmployeeManagementModel.tblReport">
+              <MappingFragment StoreEntitySet="tblReports">
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="WorkHours" ColumnName="WorkHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwReports">
+            <EntityTypeMapping TypeName="EmployeeManagementModel.vwReport">
+              <MappingFragment StoreEntitySet="vwReports">
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="WorkHours" ColumnName="WorkHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
