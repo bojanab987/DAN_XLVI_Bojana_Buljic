@@ -51,14 +51,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Label Grid.Column="1"
+        <Button Grid.Column="1"
                Grid.Row="1"
                Grid.ColumnSpan="2"
-               Content="Create new manager"
+               Content="Add manager"
                HorizontalAlignment="Left"
                Height="25"
                VerticalAlignment="Center"
-               Width="120" />
+               Width="120" 
+                Command="{Binding AddManager,UpdateSourceTrigger=PropertyChanged}"/>
         <Button Grid.Column="2"
                 Grid.Row="1"
                 Grid.ColumnSpan="2"

@@ -30,21 +30,7 @@ namespace Zadatak_1.ViewModel
                 employeeList = value;
                 OnPropertyChanged("EmployeesList");
             }
-        }
-
-        //private tblEmployee employee;
-        //public tblEmployee Employee
-        //{
-        //    get
-        //    {
-        //        return employee;
-        //    }
-        //    set
-        //    {
-        //        employee = value;
-        //        OnPropertyChanged("Employee");
-        //    }
-        //}
+        }        
 
         private Visibility employeesView = Visibility.Visible;
         public Visibility EmployeesView
@@ -95,6 +81,8 @@ namespace Zadatak_1.ViewModel
             try
             {
                 readOnly.Close();
+                LogInView newLogin = new LogInView();
+                newLogin.ShowDialog();
             }
             catch (Exception ex)
             {

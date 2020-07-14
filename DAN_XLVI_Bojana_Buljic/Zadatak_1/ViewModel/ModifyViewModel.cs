@@ -271,6 +271,8 @@ namespace Zadatak_1.ViewModel
             try
             {
                 modify.Close();
+                LogInView newLogin = new LogInView();
+                newLogin.ShowDialog();
             }
             catch (Exception ex)
             {

@@ -28,6 +28,14 @@
                 VerticalAlignment="Top"
                 Width="140"
                 Command="{Binding AddEmployee, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Content="Log Out"
+                HorizontalAlignment="Right"
+                Height="25"
+                VerticalAlignment="Top"
+                Width="140"
+                Command="{Binding LogOut, UpdateSourceTrigger=PropertyChanged}" />
         <Grid Grid.Column="1"
               Grid.Row="3"
               Height="auto"

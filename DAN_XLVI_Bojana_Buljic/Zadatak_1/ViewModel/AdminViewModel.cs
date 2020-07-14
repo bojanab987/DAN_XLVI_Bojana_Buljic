@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Zadatak_1.Commands;
 using Zadatak_1.Model;
@@ -64,6 +65,49 @@ namespace Zadatak_1.ViewModel
         #endregion
 
         #region Commands
+
+        /// <summary>
+        /// Add manager command -for adding another manager
+        /// </summary>
+        private ICommand addManager;
+        public ICommand AddManager
+        {
+            get
+            {
+                if (addManager == null)
+                {
+                    addManager = new RelayCommand(param => AddManagerExecute(), param => CanAddManagerExecute());
+                }
+                return addManager;
+            }
+        }
+
+        /// <summary>
+        /// Method for opening new view for adding new manager
+        /// </summary>
+        private void AddManagerExecute()
+        {
+            try
+            {
+                AdminView newView=new AdminView();
+                newView.ShowDialog();
+                adminMenu.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Method for check if command can be executed
+        /// </summary>
+        /// <returns>true </returns>
+        private bool CanAddManagerExecute()
+        {
+            return true;
+        }
+
         /// <summary>
         /// Save Command
         /// </summary>
@@ -149,7 +193,9 @@ namespace Zadatak_1.ViewModel
         {
             try
             {
-                adminMenu.Close();                
+                adminMenu.Close();
+                LogInView newLogin = new LogInView();
+                newLogin.ShowDialog();
             }
             catch (Exception ex)
             {
