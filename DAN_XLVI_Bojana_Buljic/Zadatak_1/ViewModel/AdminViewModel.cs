@@ -185,7 +185,7 @@ namespace Zadatak_1.ViewModel
         }
 
         /// <summary>
-        /// Method for closing AddIDcard View
+        /// Method for closing AdminView
         /// </summary>
         private void CancelExecute()
         {
