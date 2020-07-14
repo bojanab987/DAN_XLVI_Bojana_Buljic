@@ -152,39 +152,64 @@ namespace Zadatak_1.Services
 
         #region Reports service methods
         /// <summary>
-        /// Method for adding report into database by Employee
+        /// Method for adding or editing reports into database by Employee
         /// </summary>
         /// <param name="report"></param>
         /// <returns></returns>
-        public tblReport AddReport(tblReport report)
+        public string AddReport(vwReport report)
         {
             try
             {
                 using (EmployeeManagementEntities context = new EmployeeManagementEntities())
                 {
-                    int noOfreports = (from x in context.tblReports where x.EmployeeId == report.EmployeeId && x.ReportDate == report.ReportDate select x).Count();
-                    if (noOfreports < 2)
+                    if(report.ReportId==0)
                     {
-                        int hours = 0;
-                        if (noOfreports == 1)
+                        int noOfreports = (from x in context.tblReports where x.EmployeeId == report.EmployeeId && x.ReportDate == report.ReportDate select x).Count();
+                        if (noOfreports < 2)
                         {
-                            hours = (from x in context.tblReports where x.EmployeeId == report.EmployeeId && x.ReportDate == report.ReportDate select x.WorkHours).FirstOrDefault();
-                        }
+                            int hours = 0;
+                            if (noOfreports == 1)
+                            {
+                                hours = (from x in context.tblReports where x.EmployeeId == report.EmployeeId && x.ReportDate == report.ReportDate select x.WorkHours).FirstOrDefault();
+                            }
 
-                        if (hours + report.WorkHours <= 12)
-                        {
-                            context.tblReports.Add(report);
-                            context.SaveChanges();
-                        }
-                        return null;
-                    }
+                            if (hours + report.WorkHours <= 12)
+                            {
+                                tblReport newReport = new tblReport();
+                                newReport.EmployeeId = report.EmployeeId;
+                                newReport.ReportDate = report.ReportDate;
+                                newReport.Project = report.Project;
+                                newReport.WorkHours = report.WorkHours;
+                                context.tblReports.Add(newReport);
+                                context.SaveChanges();
+                                return null;
+                            }                            
+                        }                        
+                    }                  
+                    
                     else
                     {
-                        string message = "You can not have more than 12 work hours";
-                        MessageBox.Show(message);
-                        return null;
+                        tblReport reportToEdit = (from x in context.tblReports where x.ReportId == report.ReportId select x).FirstOrDefault();
+                        reportToEdit.ReportDate = report.ReportDate;
+                        reportToEdit.Project = report.Project;
+                        reportToEdit.WorkHours = report.WorkHours;
+                        int rep = (from x in context.tblReports where x.EmployeeId == report.EmployeeId && x.ReportDate == report.ReportDate && x.ReportId != report.ReportId select x.WorkHours).FirstOrDefault();
+                        if (rep == 0 && reportToEdit.WorkHours <= 12)
+                        {
+                            context.SaveChanges();
+                            return null;
+                        }
+                        else if (rep + reportToEdit.WorkHours <= 12)
+                        {
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            return "Cannot have more than 12 work hours.";
+                        }                        
                     }
                 }
+                return "Cannot have more than 12 work hours.";
             }
             catch (Exception ex)
             {
@@ -247,8 +272,8 @@ namespace Zadatak_1.Services
             {
                 using (EmployeeManagementEntities context = new EmployeeManagementEntities())
                 {
-                    vwReport reportToDelete = (from r in context.vwReports where r.ReportId == reportID select r).First();
-                    context.vwReports.Remove(reportToDelete);
+                    tblReport reportToDelete = (from r in context.tblReports where r.ReportId == reportID select r).First();
+                    context.tblReports.Remove(reportToDelete);
                     context.SaveChanges();
                 }
             }
