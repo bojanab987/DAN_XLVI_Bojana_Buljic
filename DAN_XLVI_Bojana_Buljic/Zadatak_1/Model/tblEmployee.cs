@@ -32,7 +32,11 @@ namespace Zadatak_1.Model
         public string Position { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-    
+
+        //not mapping fields
+        public string AccessLevel { get; set; }
+        public string Sector { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblManager> tblManagers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

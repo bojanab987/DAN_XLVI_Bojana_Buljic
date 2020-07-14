@@ -94,7 +94,9 @@
       <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\LogInService.cs" />
+    <Compile Include="Services\Service.cs" />
     <Compile Include="Validation\JMBGValidation.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AdminView.xaml.cs">

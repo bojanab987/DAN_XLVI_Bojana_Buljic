@@ -60,10 +60,12 @@ namespace Zadatak_1.ViewModel
                     case "Admin":
                         AdminView adminMenu = new AdminView();
                         adminMenu.ShowDialog();
+                        loginView.Close();
                         break;
                     case "Employee":
                         EmployeeView employeeView = new EmployeeView(loggedEmployee.ID);
                         employeeView.ShowDialog();
+                        loginView.Close();
                         break;
                     case "Manager":
                         tblManager manager = Services.LogInService.GetManagerById(loggedEmployee.ID);
@@ -71,11 +73,13 @@ namespace Zadatak_1.ViewModel
                         {
                             ModifyView modify = new ModifyView();
                             modify.ShowDialog();
+                            loginView.Close();
                         }
                         else
                         {
                             ReadOnlyView readOnly = new ReadOnlyView();
                             readOnly.ShowDialog();
+                            loginView.Close();
                         }
                         break;
                 }
