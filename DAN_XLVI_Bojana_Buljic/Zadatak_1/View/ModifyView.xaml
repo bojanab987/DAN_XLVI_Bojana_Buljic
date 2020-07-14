@@ -7,6 +7,92 @@
         mc:Ignorable="d"
         Title="ModifyView" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto" />            
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />            
+        </Grid.RowDefinitions>
+        <Button 
+            Grid.Row="1" 
+            Grid.Column="1"
+            Content="Add new employee"
+                HorizontalAlignment="Left"
+                Height="25"                
+                VerticalAlignment="Top"
+                Width="140"
+                Command="{Binding AddEmployee, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid Grid.Column="1"
+              Grid.Row="3"
+              Height="auto"
+              Width="auto">
+            <DataGrid Name="DataGridEmployees"
+                  ItemsSource="{Binding EmployeeList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Employee, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  Visibility="{Binding EmployeesView, UpdateSourceTrigger=PropertyChanged}"
+                  HeadersVisibility="Column"
+                  AutoGenerateColumns="False"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Employee Id"
+                                    Binding="{Binding EmployeeId}" />
+                    <DataGridTextColumn Header="First name"
+                                    Binding="{Binding FirstName}" />
+                    <DataGridTextColumn Header="Last name"
+                                    Binding="{Binding LastName}" />
+                    <DataGridTextColumn Header="Date Of Birth"
+                                    Binding="{Binding DateOfBirth}" />
+                    <DataGridTextColumn Header="JMBG"
+                                    Binding="{Binding JMBG}" />
+                    <DataGridTextColumn Header="Account No."
+                                    Binding="{Binding AccountNumber}" />
+                    <DataGridTextColumn Header="E-mail"
+                                    Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Salary"
+                                    Binding="{Binding Salary}" />
+                    <DataGridTextColumn Header="Position"
+                                    Binding="{Binding Position}" />
+                    <DataGridTextColumn Header="Username"
+                                    Binding="{Binding Username}" />
+                    <DataGridTextColumn Header="Password"
+                                    Binding="{Binding Password}" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btnDelete"
+                                        Content="Delete"
+                                        Command="{Binding Path=DataContext.DeleteEmployee, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                        Margin="4"
+                                        FontWeight="Bold" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btnEdit"
+                                    Content="Edit"
+                                    Command="{Binding Path=DataContext.EditEmployee, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
+    
 </Window>
