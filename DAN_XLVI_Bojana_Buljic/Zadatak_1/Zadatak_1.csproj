@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FileLogger.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\EmployeeManagementModel.Context.cs">
       <AutoGen>True</AutoGen>

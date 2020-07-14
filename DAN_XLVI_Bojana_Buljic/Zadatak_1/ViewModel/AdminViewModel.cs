@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Zadatak_1.Commands;
 using Zadatak_1.Model;
@@ -15,6 +15,7 @@ namespace Zadatak_1.ViewModel
     {
         AdminView adminMenu;
         Service service;
+        private readonly BackgroundWorker bgWorker = new BackgroundWorker();
 
         #region Properties
         private tblEmployee employee;
@@ -60,7 +61,23 @@ namespace Zadatak_1.ViewModel
             service = new Service();
             EmployeeList = service.GetAllEmployees().ToList();
             ManagerList = service.GetAllManagers().ToList();
+            bgWorker.DoWork += WorkerOnDoWork;
 
+        }
+        #endregion
+
+        #region Method for Logging action
+        /// <summary>
+        /// Writes the message to the log file.
+        /// </summary>
+        /// <param name="sender">object sender</param>
+        /// <param name="e">DoWorkEventArgs e</param>
+        public void WorkerOnDoWork(object sender, DoWorkEventArgs e)
+        {
+            FileLogger logger = new FileLogger();
+            string message = logger.PrintMessage("Added", Employee.FirstName, Employee.LastName);
+
+            logger.LogFile(message);
         }
         #endregion
 
@@ -132,6 +149,11 @@ namespace Zadatak_1.ViewModel
             try
             {
                 tblEmployee emp = service.AddEditEmployeeOrManager(Employee, true);
+                if (!bgWorker.IsBusy)
+                {
+                    // This method will start the execution asynchronously in the background
+                    bgWorker.RunWorkerAsync();
+                }
                 if (emp != null)
                 {
                     MessageBox.Show("Manager succesfully created!");                    

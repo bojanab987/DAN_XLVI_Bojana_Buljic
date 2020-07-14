@@ -54,7 +54,7 @@
         <Button Grid.Column="1"
                Grid.Row="1"
                Grid.ColumnSpan="2"
-               Content="Add manager"
+               Content="Add another manager"
                HorizontalAlignment="Left"
                Height="25"
                VerticalAlignment="Center"
