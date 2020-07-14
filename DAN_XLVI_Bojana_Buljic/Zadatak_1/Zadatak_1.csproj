@@ -95,7 +95,9 @@
     </Compile>
     <Compile Include="Services\LogInService.cs" />
     <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\StringConverter.cs" />
     <Compile Include="Validation\JMBGValidation.cs" />
+    <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

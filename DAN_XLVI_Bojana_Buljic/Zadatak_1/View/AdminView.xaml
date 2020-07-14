@@ -4,9 +4,313 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zadatak_1.View"
+        xmlns:Validation="clr-namespace:Zadatak_1.Validation"
+        xmlns:Services="clr-namespace:Zadatak_1.Services"
         mc:Ignorable="d"
-        Title="AdminView" Height="450" Width="800">
+        Title="AdminView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Services:StringConverter x:Key="stringConverterKey" />
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="90" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1"
+               Grid.Row="1"
+               Grid.ColumnSpan="2"
+               Content="Create new manager"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center"
+               Width="120" />
+        <Button Grid.Column="2"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Content="Log out&#xA;"
+                HorizontalAlignment="Right"
+                Height="25"
+                VerticalAlignment="Center"
+                Width="120"
+                Command="{Binding LogOut, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="3"
+               Grid.Column="1"
+               Name="lblFirstname"
+               Content="First name:"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="5"
+               Grid.Column="1"
+               Name="lblLastname"
+               Content="Last name:"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="7"
+               Grid.Column="1"
+               Name="lblDateofbirth"
+               Content="Date Of Birth:"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="9"
+               Grid.Column="1"
+               Name="lblJMBG"
+               Content="JMBG:"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="11"
+               Grid.Column="1"
+               Content="Account:"
+               Name="lblAccount"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="13"
+               Grid.Column="1"
+               Content="E-mail:"
+               Name="lblMail"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="15"
+               Grid.Column="1"
+               Content="Salary:"
+               Name="lblSalary"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="17"
+               Grid.Column="1"
+               Content="Position:"
+               Name="lblPosition"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="19"
+               Grid.Column="1"
+               Content="Username:"
+               Name="lblUsername"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="21"
+               Grid.Column="1"
+               Content="Password:"
+               Name="lblPassword"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="23"
+               Grid.Column="1"
+               Content="Sector:"
+               Name="lblSector"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <Label Grid.Row="25"
+               Grid.Column="1"
+               Content="Access:"
+               Name="lblAccess"
+               HorizontalAlignment="Left"
+               Height="25"
+               VerticalAlignment="Center" />
+        <TextBox Grid.Row="3"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtFirstName"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.FirstName, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="5"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtLastName"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.LastName, UpdateSourceTrigger=PropertyChanged}" />
+        <DatePicker Grid.Row="7"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
+                    Name="dpDateOfBirth"
+                    HorizontalAlignment="Left"
+                    Height="25"
+                    Width="200"
+                    VerticalAlignment="Center"
+                    SelectedDate="{Binding Employee.DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="9"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                 Name="txtJMBG"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center">
+            <TextBox.Text>
+                <Binding Path="Employee.JMBG"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:JMBGValidation />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Grid.Row="11"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtAccount"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.AccountNumber, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="13"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtMail"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.Email, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="15"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtSalary"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.Salary, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="17"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtPosition"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.Position, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="19"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtUsername"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.Username, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="21"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Name="txtPassword"
+                 HorizontalAlignment="Left"
+                 Height="25"
+                 Width="200"
+                 VerticalAlignment="Center"
+                 Text="{Binding Employee.Password, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Grid.Row="23"
+                    Grid.Column="2"
+                    Height="50"
+                    Width="200">
+            <RadioButton Content="HR"
+                         GroupName="Sector"
+                         HorizontalAlignment="Left"
+                         x:Name="HR"
+                         IsChecked="{Binding Employee.Sector, 
+                         Converter={StaticResource ResourceKey=stringConverterKey},
+                         ConverterParameter=HR}" />
+            <RadioButton Content="R&amp;D"
+                         GroupName="Sector"
+                         x:Name="RD"
+                         HorizontalAlignment="Left"
+                         IsChecked="{Binding Employee.Sector, 
+                         Converter={StaticResource ResourceKey=stringConverterKey}, 
+                         ConverterParameter = RD}" />
+            <RadioButton Content="Finance"
+                         GroupName="Sector"
+                         x:Name="Finance"
+                         HorizontalAlignment="Left"
+                         IsChecked="{Binding Employee.Sector, 
+                         Converter={StaticResource ResourceKey=stringConverterKey}, 
+                         ConverterParameter = Finance}" />
+        </StackPanel>
+        <StackPanel Grid.Row="25"
+                    Grid.Column="2"
+                    Height="40"
+                    Width="200">
+            <RadioButton Content="Readonly"
+                         GroupName="Access"
+                         x:Name="Readonly"
+                         HorizontalAlignment="Left"
+                         IsChecked="{Binding Employee.AccessLevel, 
+                         Converter={StaticResource ResourceKey=stringConverterKey}, 
+                         ConverterParameter=Readonly}" />
+            <RadioButton Content="Modify"
+                         GroupName="Access"
+                         x:Name="Modify"
+                         HorizontalAlignment="Left"
+                         IsChecked="{Binding Employee.AccessLevel, 
+                         Converter={StaticResource ResourceKey=stringConverterKey}, 
+                         ConverterParameter=Modify}" />
+        </StackPanel>
+        <Button Grid.Row="27"
+                Grid.Column="2"
+                Content="Save"
+                HorizontalAlignment="Left"
+                Height="25"
+                Width="90"
+                Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="27"
+                Grid.Column="2"
+                Content="Cancel"
+                HorizontalAlignment="Right"
+                Height="25"
+                Width="90"
+                Command="{Binding Cancel, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Window>

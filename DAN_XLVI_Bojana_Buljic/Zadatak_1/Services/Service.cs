@@ -126,6 +126,28 @@ namespace Zadatak_1.Services
                 System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Method gets all managers from database and returns list of managers
+        /// </summary>
+        /// <returns></returns>
+        public List<tblManager> GetAllManagers()
+        {
+            try
+            {
+                using (EmployeeManagementEntities context = new EmployeeManagementEntities())
+                {
+                    List<tblManager> managers = new List<tblManager>();
+                    managers = (from x in context.tblManagers select x).ToList();
+                    return managers;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
         #endregion
 
         #region Reports service methods
